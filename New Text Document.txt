@@ -1,0 +1,75 @@
+1. create prefab cube, give it a movement script
+
+===== Movement Script =====
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CubeMovement : MonoBehaviour {
+
+	private bool move = true;
+	// Update is called once per frame
+	void Update () {
+		
+		if(Input.GetKeyDown(KeyCode.Space))
+        {
+			move = false;
+        }
+
+		moveD(move);
+        
+	}
+
+	private void moveD (bool booln)
+    {
+		if(booln)
+			transform.position = new Vector3(transform.position.x - 0.1f, transform.position.y, transform.position.z);
+	}
+}
+
+
+
+
+2. create empty obj, give it a spawner script
+
+===== Spawner Script =====
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CubeSpawner : MonoBehaviour {
+	public GameObject cube;
+
+	private float timeInterval = 0f;
+	
+	void Start()
+    {
+		spawner();
+    }
+
+
+	// Update is called once per frame
+	void Update () {
+		timeInterval += Time.deltaTime;
+
+		// based on time
+        //if (timeInterval > 2f)
+        //{
+        //spawner();
+        //	timeInterval = 0f;
+        //}
+
+		// based on user input
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+			spawner();
+        }
+
+	}
+
+	private void spawner() {
+		Instantiate(cube, new Vector3(1f, 1f, 1f), Quaternion.identity);
+	}
+}
